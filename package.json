@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "ethereumjs-wallet": "^1.0.2"
+  }
+}
