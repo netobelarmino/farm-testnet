@@ -1,6 +1,13 @@
 {
-  "type": "module",
+  "name": "farm-testnet",
+  "version": "1.0.0",
+  "description": "Testnet farming multi-chain (Linea, Scroll, Taiko, Fuel, zkSync)",
+  "main": "testnet-farm.js",
+  "scripts": {
+    "start": "node testnet-farm.js"
+  },
   "dependencies": {
-    "ethereumjs-wallet": "^1.0.2"
+    "axios": "^1.7.0",
+    "ethers": "^6.11.1"
   }
 }
