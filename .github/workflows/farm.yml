@@ -1,9 +1,9 @@
-name: Testnet Farming Cron
+name: Cron de Farmagem de Testnet
 
 on:
-  schedule:
-    - cron: '0 2 * * *'
   workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *"
 
 jobs:
   farm:
@@ -20,15 +20,16 @@ jobs:
 
       - name: Instalar dependências
         run: |
-          npm install
+          npm install ethers csv-writer
 
-      - name: Rodar script de farming
-        run: |
-          node testnet-farm.js
+      - name: Rodar farming
         env:
           PRIVATE_KEYS: ${{ secrets.PRIVATE_KEYS }}
-          RPC_LINEA:   ${{ secrets.RPC_LINEA }}
-          RPC_SCROLL:  ${{ secrets.RPC_SCROLL }}
-          RPC_TAIKO:   ${{ secrets.RPC_TAIKO }}
-          RPC_FUEL:    ${{ secrets.RPC_FUEL }}
-          RPC_ZKSYNC:  ${{ secrets.RPC_ZKSYNC }}
+          RPC_LINEA: ${{ secrets.RPC_LINEA }}
+          RPC_SCROLL: ${{ secrets.RPC_SCROLL }}
+          RPC_ZKSYNC: ${{ secrets.RPC_ZKSYNC }}
+          RPC_TAIKO: ${{ secrets.RPC_TAIKO }}
+          RPC_FUEL: ${{ secrets.RPC_FUEL }}
+        run: |
+          echo "Iniciando execução..."
+          node testnet-farm.js
