@@ -1,35 +1,27 @@
-name: Cron de Farmagem de Testnet
+name: Testnet Farming Cron
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "0 3 * * *"
+    - cron: '0 2 * * *'   # 02:00 UTC / 23:00 (-3)
+  workflow_dispatch:
 
 jobs:
   farm:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Instalar dependências
-        run: |
-          npm install ethers csv-writer
+      - run: npm ci        # instala ethers, axios, etc
 
-      - name: Rodar farming
+      - run: node testnet-farm.js
         env:
           PRIVATE_KEYS: ${{ secrets.PRIVATE_KEYS }}
-          RPC_LINEA: ${{ secrets.RPC_LINEA }}
-          RPC_SCROLL: ${{ secrets.RPC_SCROLL }}
-          RPC_ZKSYNC: ${{ secrets.RPC_ZKSYNC }}
-          RPC_TAIKO: ${{ secrets.RPC_TAIKO }}
-          RPC_FUEL: ${{ secrets.RPC_FUEL }}
-        run: |
-          echo "Iniciando execução..."
-          node testnet-farm.js
+          RPC_LINEA:   ${{ secrets.RPC_LINEA }}
+          RPC_SCROLL:  ${{ secrets.RPC_SCROLL }}
+          RPC_TAIKO:   ${{ secrets.RPC_TAIKO }}
+          RPC_FUEL:    ${{ secrets.RPC_FUEL }}
+          RPC_ZKSYNC:  ${{ secrets.RPC_ZKSYNC }}
